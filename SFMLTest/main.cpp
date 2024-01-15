@@ -5,7 +5,7 @@
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Minesweeper");
-	Grid grid(10, 15);
+	Grid grid(3, 3, 5);
 
 	while (window.isOpen()) {
 		std::cout << "open window\n";

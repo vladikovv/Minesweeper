@@ -13,6 +13,7 @@ public:
 	void setM(int m);
 	void setN(int n);
 	void setMinesCount(int minesCount);
+	void simplePrint();
 	
 
 

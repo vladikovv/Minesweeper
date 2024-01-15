@@ -37,3 +37,7 @@ bool Square::isOpened() {
 bool Square::hasMine() {
 	return hasMine_;
 }
+
+void Square::setMine() {
+	hasMine_ = true;
+}

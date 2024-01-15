@@ -11,6 +11,7 @@ public:
 	void setY(int y);
 	bool isOpened();
 	bool hasMine();
+	void setMine();
 
 
 private:
