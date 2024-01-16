@@ -19,16 +19,23 @@ int main() {
 			
 		}
 		if (event.type == sf::Event::MouseButtonPressed) {
+			int xCoord = event.mouseButton.x;
+			int yCoord = event.mouseButton.y;
+			Square* sq = game.getGrid().at(std::abs(xCoord / 27)).at(std::abs(yCoord / 27));
 			if (event.mouseButton.button == sf::Mouse::Left) {
-				int xCoord = event.mouseButton.x;
-				int yCoord = event.mouseButton.y;
-
-				Square* sq = game.getGrid().at(std::abs(xCoord / 27)).at(std::abs(yCoord / 27));
-				sq->openSquare();
+				if(sq->isOpenable()) {
+					sq->openSquare();
+				}
 				if (sq->isOpened() && sq->hasMine()) {
 					window.close();
 					return 0;
 				}
+			}
+			else if (event.mouseButton.button == sf::Mouse::Right) {
+				if (sq->isOpenable()) {
+					sq->flag();
+				}
+				
 			}
 		}
 

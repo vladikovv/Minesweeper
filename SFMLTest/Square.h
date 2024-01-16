@@ -22,7 +22,9 @@ public:
 	void setTexture(sf::Texture& texture);
 	void changeSprite(sf::Texture& texture);
 	void openSquare();
-
+	void setIsOpened(bool value);
+	void flag();
+	bool isOpenable();
 
 private:
 	int x_;
@@ -30,6 +32,8 @@ private:
 	int value_;
 	bool isOpened_;
 	bool hasMine_;
+	bool isFlagged_ = false;
+	bool isOpenable_ = !isFlagged_;
 	sf::Texture texture_;
 	sf::Sprite sprite_;
 };
