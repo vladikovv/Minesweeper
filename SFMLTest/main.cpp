@@ -53,7 +53,7 @@ int main() {
 											revealEmptySquaresRecursive(game, adjSquare->getX(), adjSquare->getY());
 										}
 										adjSquare->openSquare();
-										game.incrementSquaresOpened();
+										//game.incrementSquaresOpened();
 									}
 								}
 							}
@@ -69,11 +69,11 @@ int main() {
 				}
 			}
 
-			if (game.getSquaresOpened() == game.openedSquaresToWin()) {
+			/*if (game.getSquaresOpened() == game.openedSquaresToWin()) {
 				window.close();
 				std::cout << "YOU WIN!" << std::endl;
 				return 0;
-			}
+			}*/
 		}
 		
 		window.clear(sf::Color(0,0,0,255));
@@ -83,8 +83,8 @@ int main() {
 				window.draw(game.getGrid()[i][j]->getSprite());
 			}
 		}
-		std::cout << "needed number of squares for a win: " << game.openedSquaresToWin() << std::endl;
-		std::cout << "current number of squares opened: " << game.getSquaresOpened() << std::endl;
+		/*std::cout << "needed number of squares for a win: " << game.openedSquaresToWin() << std::endl;
+		std::cout << "current number of squares opened: " << game.getSquaresOpened() << std::endl;*/
 
 		window.display();
 	}
@@ -128,7 +128,7 @@ void revealEmptySquaresRecursive(Game& game, int x, int y) {
 	}
 
 	currentSquare->openSquare();
-	game.incrementSquaresOpened();
+	//game.incrementSquaresOpened();
 
 	if (currentSquare->getValue() != 0) {
 		return;

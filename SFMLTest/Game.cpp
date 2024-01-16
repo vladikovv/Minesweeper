@@ -7,8 +7,6 @@ Game::Game(int m, int n, int minesCount) {
 	m_ = m;
 	n_ = n;
 	minesCount_ = minesCount;
-	squaresToWin_ = m_ * n_ - minesCount;
-	squaresOpened_ = 0;
 
 	addSquares();
 	addMines();
