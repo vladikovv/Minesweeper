@@ -27,8 +27,8 @@ Square::Square(int x, int y) {
 		std::cout << "Error loading texture!" << std::endl;
 	}
 	sprite_.setTexture(texture_);
-	sprite_.setPosition(x_ * 27, y_ * 27);
-	sprite_.setScale(0.125f, 0.125f);
+	sprite_.setPosition(x_ * 54, y_ * 54);
+	sprite_.setScale(0.25f, 0.25f);
 }
 
 
@@ -91,6 +91,9 @@ void Square::changeSprite(sf::Texture& texture) {
 
 void Square::openSquare() {
 	sf::Texture texture;
+	if (isFlagged_) {
+		return;
+	}
 	if (hasMine_ ) {
 		if (!isOpened_) {
 			if (!texture.loadFromFile("textures/MINESWEEPER_M.png")) {
@@ -129,6 +132,7 @@ void Square::setIsOpened(bool value) {
 
 void Square::flag() {
 	isFlagged_ = true;
+	isOpenable_ = false;
 	sf::Texture texture;
 	if (!texture.loadFromFile("textures/MINESWEEPER_F.png")) {
 		std::cout << "Error loading texture!" << std::endl;
@@ -143,4 +147,14 @@ bool Square::isOpenable() {
 
 bool Square::isFlagged() {
 	return isFlagged_;
+}
+
+void Square::removeFlag() {
+	isFlagged_ = false;
+	isOpenable_ = true;
+	sf::Texture texture;
+	if (!texture.loadFromFile("textures/MINESWEEPER_X.png")) {
+		std::cout << "Error loading texture!" << std::endl;
+	}
+	changeSprite(texture);
 }

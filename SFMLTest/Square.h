@@ -26,6 +26,7 @@ public:
 	void flag();
 	bool isFlagged();
 	bool isOpenable();
+	void removeFlag();
 
 private:
 	int x_;

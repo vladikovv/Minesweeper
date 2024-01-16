@@ -5,12 +5,17 @@
 #include <iostream>
 #include <cstdlib>
 
+constexpr int SPRITE_LENGTH = 54;
+constexpr int LENGTH = 16;
+constexpr int WIDTH = 16;
+constexpr int NUMBER_OF_MINES = 40;
+
 
 int countAdjacentFlaggedSquares(Game& game, int x, int y, std::vector<Square*>& arr);
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(27 * 16, 27 * 16), "Minesweeper", sf::Style::Titlebar | sf::Style::Close);
-	Game game(16, 16, 40);
+	sf::RenderWindow window(sf::VideoMode(SPRITE_LENGTH * LENGTH, SPRITE_LENGTH * WIDTH), "Minesweeper", sf::Style::Titlebar | sf::Style::Close);
+	Game game(LENGTH, WIDTH, NUMBER_OF_MINES);
 
 	while (game.isGameOver() != true && window.isOpen()) {
 		sf::Event event;
@@ -19,39 +24,42 @@ int main() {
 			if (event.type == sf::Event::Closed || game.isGameOver()) {
 				window.close();	
 			}
-			
-		}
-		if (event.type == sf::Event::MouseButtonPressed) {
-			int xCoord = event.mouseButton.x;
-			int yCoord = event.mouseButton.y;
-			Square* sq = game.getGrid().at(std::abs(xCoord / 27)).at(std::abs(yCoord / 27));
-			if (event.mouseButton.button == sf::Mouse::Left) {
-				if(sq->isOpenable()) {
-					sq->openSquare();
-				}
-				if (sq->isOpened()) {
-					if (sq->hasMine()) {
-						window.close();
-						return 0;
-					} 
-					else {
-						std::vector<Square*> adjacentSquares;
-						int adjacentFlaggedSquares = countAdjacentFlaggedSquares(game, std::abs(xCoord / 27), std::abs(yCoord/27), adjacentSquares);
-						if (adjacentFlaggedSquares == sq->getValue()) {
-							for (Square* square : adjacentSquares) {
-								square->openSquare();
+			if (event.type == sf::Event::MouseButtonReleased) {
+				int xCoord = event.mouseButton.x;
+				int yCoord = event.mouseButton.y;
+				Square* sq = game.getGrid().at(xCoord / SPRITE_LENGTH).at(yCoord / SPRITE_LENGTH);
+				if (event.mouseButton.button == sf::Mouse::Left) {
+					if (sq->isOpenable()) {
+						sq->openSquare();
+					}
+					if (sq->isOpened()) {
+						if (sq->hasMine()) {
+							window.close();
+							return 0;
+						} else {
+							std::vector<Square*> adjacentSquares;
+							int adjacentFlaggedSquares = countAdjacentFlaggedSquares(game, xCoord / SPRITE_LENGTH, yCoord / SPRITE_LENGTH, adjacentSquares);
+							if (adjacentFlaggedSquares == sq->getValue()) {
+								for (Square* adjSquare : adjacentSquares) {
+									if (adjSquare->hasMine()) {
+										window.close();
+										return 0;
+									}
+									adjSquare->openSquare();
+								}
 							}
 						}
 					}
+				} else if (event.mouseButton.button == sf::Mouse::Right) {
+					if (sq->isOpenable()) {
+						sq->flag();
+					} else if (sq->isFlagged()) {
+						sq->removeFlag();
+					}
 				}
-			}
-			else if (event.mouseButton.button == sf::Mouse::Right) {
-				if (sq->isOpenable()) {
-					sq->flag();
-				}
-				
 			}
 		}
+		
 
 		window.clear(sf::Color(0,0,0,255));
 
@@ -80,7 +88,9 @@ int countAdjacentFlaggedSquares(Game& game, int x, int y, std::vector<Square*>& 
 
 			if (newX >= 0 && newX < game.getM() && newY >= 0 && newY < game.getN()) {
 				Square* adjacentSquare = game.getGrid().at(newX).at(newY);
-				arr.push_back(adjacentSquare);
+				if (!adjacentSquare->isOpened()) {
+					arr.push_back(adjacentSquare);
+				}
 				if (adjacentSquare->isFlagged()) {
 					result++;
 				}

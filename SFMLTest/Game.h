@@ -24,6 +24,7 @@ private:
 	int minesCount_;
 	std::vector<std::vector<Square*>> grid_;
 	bool isGameOver_ = false;
+	int squaresToWin_;
 
 	void addSquares();
 	void addMines();
