@@ -8,6 +8,7 @@
 
 
 int countAdjacentFlaggedSquares(const Game& game, const int x, const int y, std::vector<Square*>& adjacentSquares);
+void revealEmptySquaresRecursive(Game& game, int x, int y);
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(SPRITE_LENGTH * LENGTH, SPRITE_LENGTH * WIDTH), "Minesweeper", sf::Style::Titlebar | sf::Style::Close);
@@ -30,12 +31,14 @@ int main() {
 							game.showAllMines();
 							std::cout << "YOU LOSE!" << std::endl;
 						}
+						if (sq->getValue() == 0) {
+							revealEmptySquaresRecursive(game, xCoord / SPRITE_LENGTH, yCoord / SPRITE_LENGTH);
+						}
 						sq->openSquare();
-						game.incrementSquaresOpened();
 						continue;
+						//TODO: make a system that ends the game correctly
 					}
 					if (sq->isOpened()) {
-					{
 						std::vector<Square*> adjacentSquares;
 						int adjacentFlaggedSquares = countAdjacentFlaggedSquares(game, xCoord / SPRITE_LENGTH, yCoord / SPRITE_LENGTH, adjacentSquares);
 						if (adjacentFlaggedSquares == sq->getValue()) {
@@ -46,12 +49,14 @@ int main() {
 										std::cout << "YOU LOSE!" << std::endl;
 									} 
 									else {
+										if (adjSquare->getValue() == 0) {
+											revealEmptySquaresRecursive(game, adjSquare->getX(), adjSquare->getY());
+										}
 										adjSquare->openSquare();
 										game.incrementSquaresOpened();
 									}
 								}
 							}
-						}
 						}
 					}
 				} 
@@ -78,6 +83,9 @@ int main() {
 				window.draw(game.getGrid()[i][j]->getSprite());
 			}
 		}
+		std::cout << "needed number of squares for a win: " << game.openedSquaresToWin() << std::endl;
+		std::cout << "current number of squares opened: " << game.getSquaresOpened() << std::endl;
+
 		window.display();
 	}
 
@@ -107,4 +115,28 @@ int countAdjacentFlaggedSquares(const Game& game, const int x, const int y, std:
 		}
 	}
 	return result;
+}
+
+void revealEmptySquaresRecursive(Game& game, int x, int y) {
+	if (x < 0 || x >= game.getM() || y < 0 || y >= game.getN()) {
+		return;
+	}
+
+	Square* currentSquare = game.getGrid().at(x).at(y);
+	if (currentSquare->isOpened()) {
+		return;
+	}
+
+	currentSquare->openSquare();
+	game.incrementSquaresOpened();
+
+	if (currentSquare->getValue() != 0) {
+		return;
+	}
+
+	for (int i = -1; i <= 1; ++i) {
+		for (int j = -1; j <= 1; ++j) {
+			revealEmptySquaresRecursive(game, x + i, y + j);
+		}
+	}
 }

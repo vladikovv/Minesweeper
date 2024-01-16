@@ -175,16 +175,12 @@ bool Game::isGameOver() const {
 	return isGameOver_;
 }
 
-void Game::incrementSquaresOpened() {
-	squaresOpened_++;
+void Game::incrementMinesMarked() {
+	minesMarked_++;
 }
 
-int Game::getSquaresOpened() const {
-	return squaresOpened_;
-}
-
-int Game::openedSquaresToWin() const {
-	return squaresToWin_;
+int Game::getMinesMarked() const {
+	return minesMarked_;
 }
 
 void Game::showAllMines() const {
