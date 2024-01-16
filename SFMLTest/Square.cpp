@@ -92,9 +92,17 @@ void Square::changeSprite(sf::Texture& texture) {
 void Square::openSquare() {
 	sf::Texture texture;
 	if (hasMine_ ) {
-		if (!texture.loadFromFile("textures/MINESWEEPER_M.png")) {
-			std::cout << "Error loading texture!" << std::endl;
+		if (!isOpened_) {
+			if (!texture.loadFromFile("textures/MINESWEEPER_M.png")) {
+				std::cout << "Error loading texture!" << std::endl;
+			}
 		}
+		else {
+			if (!texture.loadFromFile("textures/MINESWEEPER_F.png")) {
+				std::cout << "Error loading texture!" << std::endl;
+			}
+		}
+		
 	} else {
 		if (value_ > 0) {
 			std::string fileName = std::format("textures/MINESWEEPER_{}.png", getValue());
@@ -111,7 +119,8 @@ void Square::openSquare() {
 	}
 	
 	changeSprite(texture);
-	setIsOpened(true);
+	isOpened_ = true;
+	isOpenable_ = false;
 }
 
 void Square::setIsOpened(bool value) {
@@ -130,4 +139,8 @@ void Square::flag() {
 
 bool Square::isOpenable() {
 	return isOpenable_ && !isOpened_;
+}
+
+bool Square::isFlagged() {
+	return isFlagged_;
 }

@@ -24,6 +24,7 @@ public:
 	void openSquare();
 	void setIsOpened(bool value);
 	void flag();
+	bool isFlagged();
 	bool isOpenable();
 
 private:
