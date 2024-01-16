@@ -18,15 +18,15 @@ Game::Game(int m, int n, int minesCount) {
 	std::cout << std::endl;
 }
 
-int Game::getM() {
+int Game::getM() const {
 	return m_;
 }
 
-int Game::getN() {
+int Game::getN() const {
 	return n_;
 }
 
-int Game::getMinesCount() {
+int Game::getMinesCount() const {
 	return minesCount_;
 }
 
@@ -60,7 +60,7 @@ void Game::addMines() {
 	}
 }
 
-void Game::simplePrint() {
+void Game::simplePrint() const {
 	for (size_t i = 0; i < m_; i++) {
 		for (size_t j = 0; j < n_; j++) {
 			if (grid_.at(j).at(i)->hasMine()) {
@@ -153,7 +153,7 @@ void Game::setNonMineSquareValues() {
 	}
 }
 
-std::vector<std::vector<Square*>> Game::getGrid() {
+std::vector<std::vector<Square*>> Game::getGrid() const {
 	return grid_;
 }
 
@@ -172,7 +172,7 @@ void Game::endGame() {
 	isGameOver_ = true;
  }
 
-bool Game::isGameOver() {
+bool Game::isGameOver() const {
 	return isGameOver_;
 }
 
@@ -180,11 +180,11 @@ void Game::incrementSquaresOpened() {
 	squaresOpened_++;
 }
 
-int Game::getSquaresOpened() {
+int Game::getSquaresOpened() const {
 	return squaresOpened_;
 }
 
-int Game::openedSquaresToWin() {
+int Game::openedSquaresToWin() const {
 	return squaresToWin_;
 }
 

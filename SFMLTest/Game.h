@@ -7,18 +7,18 @@
 class Game {
 public:
 	Game(int m, int n, int minesCount);
-	int getM();
-	int getN();
-	int getMinesCount();
+	int getM() const;
+	int getN() const;
+	int getMinesCount() const;
 	void setM(int m);
 	void setN(int n);
 	void setMinesCount(int minesCount);
-	std::vector<std::vector<Square*>> getGrid();
+	std::vector<std::vector<Square*>> getGrid() const;
 	void endGame();
-	bool isGameOver();
+	bool isGameOver() const;
 	void incrementSquaresOpened();
-	int getSquaresOpened();
-	int openedSquaresToWin();
+	int getSquaresOpened() const;
+	int openedSquaresToWin() const;
 	~Game();
 
 private:
@@ -32,7 +32,7 @@ private:
 
 	void addSquares();
 	void addMines();
-	void simplePrint();
+	void simplePrint() const;
 	void setNonMineSquareValues();
 
 	

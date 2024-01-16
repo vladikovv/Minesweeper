@@ -7,7 +7,7 @@
 #include <cstdlib>
 
 
-int countAdjacentFlaggedSquares(Game& game, int x, int y, std::vector<Square*>& arr);
+int countAdjacentFlaggedSquares(const Game& game, const int x, const int y, std::vector<Square*>& adjacentSquares);
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(SPRITE_LENGTH * LENGTH, SPRITE_LENGTH * WIDTH), "Minesweeper", sf::Style::Titlebar | sf::Style::Close);
@@ -86,7 +86,7 @@ int main() {
 	return 0;
 }
 
-int countAdjacentFlaggedSquares(Game& game, int x, int y, std::vector<Square*>& arr) {
+int countAdjacentFlaggedSquares(const Game& game, const int x, const int y, std::vector<Square*>& adjacentSquares) {
 	int result = 0;
 	for (int i = -1; i <= 1; ++i) {
 		for (int j = -1; j <= 1; ++j) {
@@ -100,7 +100,7 @@ int countAdjacentFlaggedSquares(Game& game, int x, int y, std::vector<Square*>& 
 			if (newX >= 0 && newX < game.getM() && newY >= 0 && newY < game.getN()) {
 				Square* adjacentSquare = game.getGrid().at(newX).at(newY);
 				if (!adjacentSquare->isOpened()) {
-					arr.push_back(adjacentSquare);
+					adjacentSquares.push_back(adjacentSquare);
 				}
 				if (adjacentSquare->isFlagged()) {
 					result++;

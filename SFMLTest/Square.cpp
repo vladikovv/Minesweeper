@@ -36,15 +36,15 @@ Square::Square(int x, int y) {
 
 
 
-int Square::getX() {
+int Square::getX() const {
 	return x_;
 }
 
-int Square::getY() {
+int Square::getY() const {
 	return y_;
 }
 
-void Square::setX(int x) {
+void Square::setX(int x)  {
 	x_ = x;
 }
 
@@ -52,11 +52,11 @@ void Square::setY(int y) {
 	y_ = y;
 }
 
-bool Square::isOpened() {
+bool Square::isOpened() const {
 	return isOpened_;
 }
 
-bool Square::hasMine() {
+bool Square::hasMine() const {
 	return hasMine_;
 }
 
@@ -64,7 +64,7 @@ void Square::setMine() {
 	hasMine_ = true;
 }
 
-int Square::getValue() {
+int Square::getValue() const {
 	return value_;
 }
 
@@ -72,14 +72,14 @@ void Square::setValue(int value) {
 	value_ = value;
 }
 
-sf::Sprite Square::getSprite() {
+sf::Sprite Square::getSprite() const {
 	return sprite_;
 }
 void Square::setSprite(sf::Sprite& sprite) {
 	sprite_ = sprite;
 }
 
-sf::Texture Square::getTexture() {
+sf::Texture Square::getTexture() const {
 	return texture_;
 }
 
@@ -144,11 +144,11 @@ void Square::flag() {
 
 }
 
-bool Square::isOpenable() {
+bool Square::isOpenable() const {
 	return isOpenable_ && !isOpened_;
 }
 
-bool Square::isFlagged() {
+bool Square::isFlagged() const {
 	return isFlagged_;
 }
 

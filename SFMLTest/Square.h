@@ -7,25 +7,25 @@ class Square {
 public:
 	Square();
 	Square(int x, int y);
-	int getX();
-	int getY();
+	int getX() const;
+	int getY() const;
 	void setX(int x);
 	void setY(int y);
-	bool isOpened();
-	bool hasMine();
+	bool isOpened() const;
+	bool hasMine() const;
 	void setMine();
-	int getValue();
+	int getValue() const;
 	void setValue(int value);
-	sf::Sprite getSprite();
+	sf::Sprite getSprite() const;
 	void setSprite(sf::Sprite& sprite);
-	sf::Texture getTexture();
+	sf::Texture getTexture() const;
 	void setTexture(sf::Texture& texture);
 	void changeSprite(sf::Texture& texture);
 	void openSquare();
 	void setIsOpened(bool value);
 	void flag();
-	bool isFlagged();
-	bool isOpenable();
+	bool isFlagged() const;
+	bool isOpenable() const;
 	void removeFlag();
 
 private:
