@@ -6,6 +6,9 @@ Square::Square(int x, int y) {
 	hasMine_ = false;
 	isOpened_ = false;
 	value_ = 0;
+	sf::Texture texture;
+	texture.loadFromFile("MINESWEEPER_0.png");
+	sprite_.setTexture(texture);
 }
 
 Square::Square() {
@@ -14,6 +17,9 @@ Square::Square() {
 	hasMine_ = false;
 	isOpened_ = false;
 	value_ = 0;
+	sf::Texture texture;
+	texture.loadFromFile("MINESWEEPER_0.png");
+	sprite_.setTexture(texture);
 }
 
 int Square::getX() {
@@ -50,4 +56,11 @@ int Square::getValue() {
 
 void Square::setValue(int value) {
 	value_ = value;
+}
+
+sf::Sprite Square::getSprite() {
+	return sprite_;
+}
+void Square::setSprite(sf::Sprite& sprite) {
+	sprite_ = sprite;
 }

@@ -8,7 +8,7 @@ Grid::Grid(int m, int n, int minesCount) {
 	n_ = n;
 	minesCount_ = minesCount;
 
-	allocateMemory();
+	setSquaresCoordinates();
 	addMines();
 
 	setNonMineSquareValues();
@@ -38,13 +38,6 @@ void Grid::setN(int n) {
 
 void Grid::setMinesCount(int minesCount) {
 	minesCount_ = minesCount;
-}
-
-void Grid::allocateMemory() {
-	grid_.resize(m_);
-	for (auto it = grid_.begin(); it != grid_.end(); ++it) {
-		(*it).resize(n_);
-	}
 }
 
 void Grid::addMines() {
@@ -155,5 +148,20 @@ void Grid::setNonMineSquareValues() {
 			}
 		}
 	}
-
 }
+
+std::vector<std::vector<Square>> Grid::getGrid() {
+	return grid_;
+}
+
+void Grid::addSquares() {
+	for (size_t i = 0; i < m_; i++) {
+		std::vector<Square> row;
+		for (size_t j = 0; j < n_; j++) {
+			Square sq(i, j);
+			row.push_back(sq);
+		}
+		grid_.push_back(row);
+	}
+}
+

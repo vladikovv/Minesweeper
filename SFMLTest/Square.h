@@ -1,6 +1,8 @@
 #ifndef SQUARE_H
 #define SQUARE_H
 
+#include <SFML/Graphics.hpp>
+
 class Square {
 public:
 	Square();
@@ -14,6 +16,8 @@ public:
 	void setMine();
 	int getValue();
 	void setValue(int value);
+	sf::Sprite getSprite();
+	void setSprite(sf::Sprite& sprite);
 
 
 private:
@@ -22,6 +26,7 @@ private:
 	int value_;
 	bool isOpened_;
 	bool hasMine_;
+	sf::Sprite sprite_;
 };
 
 #endif
