@@ -1,4 +1,4 @@
-#include "Grid.h"
+#include "Game.h"
 
 #include <SFML/Graphics.hpp>
 #include <climits>
@@ -6,14 +6,14 @@
 #include <cstdlib>
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(27 * 16, 27 * 16), "Minesweeper", sf::Style::Titlebar | sf::Style::Close);
-	Game grid(16, 16, 75);
+	sf::RenderWindow window(sf::VideoMode(27 * 9, 27 * 9), "Minesweeper", sf::Style::Titlebar | sf::Style::Close);
+	Game game(9, 9, 10);
 
-	while (window.isOpen()) {
+	while (game.isGameOver() != true && window.isOpen()) {
 		sf::Event event;
 		
 		while (window.pollEvent(event)) {
-			if (event.type == sf::Event::Closed) {
+			if (event.type == sf::Event::Closed || game.isGameOver()) {
 				window.close();	
 			}
 			
@@ -23,23 +23,25 @@ int main() {
 				int xCoord = event.mouseButton.x;
 				int yCoord = event.mouseButton.y;
 
-				Square* sq = grid.getGrid().at(std::abs(xCoord / 27)).at(std::abs(yCoord / 27));
+				Square* sq = game.getGrid().at(std::abs(xCoord / 27)).at(std::abs(yCoord / 27));
 				sq->openSquare();
+				if (sq->isOpened() && sq->hasMine()) {
+					window.close();
+					return 0;
+				}
 			}
 		}
 
 		window.clear(sf::Color(0,0,0,255));
 
-		
-		for (size_t i = 0; i < grid.getM(); i++) {
-			for (size_t j = 0; j < grid.getN(); j++) {
-				window.draw(grid.getGrid()[i][j]->getSprite());
+		for (size_t i = 0; i < game.getM(); i++) {
+			for (size_t j = 0; j < game.getN(); j++) {
+				window.draw(game.getGrid()[i][j]->getSprite());
 			}
-			
 		}
 		window.display();
 	}
 
 
-	
+	return 0;
 }

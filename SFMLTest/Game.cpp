@@ -1,4 +1,4 @@
-﻿#include "Grid.h"
+﻿#include "Game.h"
 
 #include <iostream>
 #include <random>
@@ -61,7 +61,12 @@ void Game::addMines() {
 void Game::simplePrint() {
 	for (size_t i = 0; i < m_; i++) {
 		for (size_t j = 0; j < n_; j++) {
-			std::cout << grid_.at(j).at(i)->getValue() << ' ';
+			if (grid_.at(j).at(i)->hasMine()) {
+				std::cout << "M ";
+			}
+			else {
+				std::cout << grid_.at(j).at(i)->getValue() << ' ';
+			}
 		}
 		std::cout << std::endl;
 	}
@@ -163,13 +168,17 @@ void Game::addSquares() {
 
 Game::~Game() {
 	for (size_t i = 0; i < m_; i++) {
-		std::vector<Square*> row;
+		std::vector<Square*> row = grid_.at(i);
 		for (size_t j = 0; j < n_; j++) {
 			delete row.at(j);
 		}
 	}
 }
 
-void Game::gameOver() {
-	gameOver_ = true;
+void Game::endGame() {
+	isGameOver_ = true;
  }
+
+bool Game::isGameOver() {
+	return isGameOver_;
+}

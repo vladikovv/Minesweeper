@@ -1,5 +1,5 @@
-#ifndef GRID_H
-#define GRID_H
+#ifndef GAME_H
+#define GAME_H
 
 #include<vector>
 #include "Square.h"
@@ -14,6 +14,8 @@ public:
 	void setN(int n);
 	void setMinesCount(int minesCount);
 	std::vector<std::vector<Square*>> getGrid();
+	void endGame();
+	bool isGameOver();
 	~Game();
 
 private:
@@ -21,13 +23,13 @@ private:
 	int n_;
 	int minesCount_;
 	std::vector<std::vector<Square*>> grid_;
-	bool gameOver_ = false;
+	bool isGameOver_ = false;
 
 	void addSquares();
 	void addMines();
 	void simplePrint();
 	void setNonMineSquareValues();
-	void gameOver();
+
 	
 };
 

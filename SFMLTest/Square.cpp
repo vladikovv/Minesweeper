@@ -12,8 +12,8 @@ Square::Square() {
 		std::cout << "Error loading texture!" << std::endl;
 	}
 	sprite_.setTexture(texture_);
-	sprite_.setPosition(1920 - x_ * 30 + 50, y_ * 30 + 50);
-	sprite_.setScale(0.15f, 0.15f);
+	sprite_.setPosition(x_ * 27, y_ * 27);
+	sprite_.setScale(0.125f, 0.125f);
 }
 
 Square::Square(int x, int y) {
@@ -91,7 +91,7 @@ void Square::changeSprite(sf::Texture& texture) {
 
 void Square::openSquare() {
 	sf::Texture texture;
-	if (hasMine_) {
+	if (hasMine_ ) {
 		if (!texture.loadFromFile("textures/MINESWEEPER_M.png")) {
 			std::cout << "Error loading texture!" << std::endl;
 		}
