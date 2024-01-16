@@ -14,6 +14,7 @@ public:
 	void setN(int n);
 	void setMinesCount(int minesCount);
 	void simplePrint();
+	void setNonMineSquareValues();
 	
 
 
@@ -24,6 +25,7 @@ private:
 	std::vector<std::vector<Square>> grid_;
 
 	void addMines();
+	void allocateMemory();
 	
 };
 

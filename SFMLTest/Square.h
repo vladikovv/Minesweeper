@@ -12,11 +12,14 @@ public:
 	bool isOpened();
 	bool hasMine();
 	void setMine();
+	int getValue();
+	void setValue(int value);
 
 
 private:
 	int x_;
 	int y_;
+	int value_;
 	bool isOpened_;
 	bool hasMine_;
 };

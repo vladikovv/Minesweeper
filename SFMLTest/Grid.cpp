@@ -1,4 +1,4 @@
-#include "Grid.h"
+﻿#include "Grid.h"
 
 #include <iostream>
 #include <random>
@@ -8,13 +8,12 @@ Grid::Grid(int m, int n, int minesCount) {
 	n_ = n;
 	minesCount_ = minesCount;
 
-	grid_.resize(m);
-	for (auto it = grid_.begin(); it != grid_.end(); ++it) {
-		(*it).resize(n);
-	}
-
+	allocateMemory();
 	addMines();
+
+	setNonMineSquareValues();
 	simplePrint();
+	std::cout << std::endl;
 }
 
 int Grid::getM() {
@@ -39,6 +38,13 @@ void Grid::setN(int n) {
 
 void Grid::setMinesCount(int minesCount) {
 	minesCount_ = minesCount;
+}
+
+void Grid::allocateMemory() {
+	grid_.resize(m_);
+	for (auto it = grid_.begin(); it != grid_.end(); ++it) {
+		(*it).resize(n_);
+	}
 }
 
 void Grid::addMines() {
@@ -66,10 +72,88 @@ void Grid::simplePrint() {
 			if ((*it2).hasMine()) {
 				std::cout << "M" << ' ';
 			} else {
-				std::cout << "E" << ' ';
+				std::cout << (*it2).getValue() << ' ';
 			}
 		}
 		std::cout << "\n";
 	}
 }
 
+void Grid::setNonMineSquareValues() {
+	for (size_t i = 0; i < m_; i++) {
+		for (size_t j = 0; j < n_; j++) {
+			Square* current = &grid_.at(i).at(j);
+			if (current->hasMine()) {
+				continue;
+			}
+
+			if (i == 0 && j == 0) {
+				current->setValue(grid_.at(0).at(1).hasMine()		//top left edge square
+					+ grid_.at(1).at(0).hasMine()
+					+ grid_.at(1).at(1).hasMine());
+			}
+
+			else if (i == 0 && j == n_ - 1) {
+				current->setValue(grid_.at(0).at(n_ - 2).hasMine()		//top right edge square
+					+ grid_.at(1).at(n_ - 1).hasMine()
+					+ grid_.at(1).at(n_ - 2).hasMine());
+			}
+
+			else if (i == m_ - 1 && j == 0) {
+				current->setValue(grid_.at(m_ - 2).at(0).hasMine()		//bottom left edge square
+					+ grid_.at(m_ - 2).at(1).hasMine()
+					+ grid_.at(m_ - 1).at(1).hasMine());
+			}
+
+			else if (i == m_ - 1 && j == n_ - 1) {
+				current->setValue(grid_.at(m_ - 2).at(n_ - 1).hasMine()		//bottom left edge square
+					+ grid_.at(m_ - 1).at(n_ - 2).hasMine()
+					+ grid_.at(m_ - 2).at(n_ - 2).hasMine());
+			}
+
+			else if (i == 0 && j > 0 && j < n_ - 1) {										//top row without the edges
+				current->setValue(grid_.at(i).at(j - 1).hasMine()
+					+ grid_.at(i + 1).at(j - 1).hasMine()
+					+ grid_.at(i + 1).at(j).hasMine()
+					+ grid_.at(i + 1).at(j + 1).hasMine()
+					+ grid_.at(i).at(j + 1).hasMine());
+			}
+
+			else if (i > 0 && i < m_ - 1 && j == n_ - 1) {										//right column without the edges
+				current->setValue(grid_.at(i - 1).at(j).hasMine()
+					+ grid_.at(i - 1).at(j - 1).hasMine()
+					+ grid_.at(i).at(j - 1).hasMine()
+					+ grid_.at(i + 1).at(j - 1).hasMine()
+					+ grid_.at(i + 1).at(j).hasMine());
+			}
+
+			else if (i == m_ - 1 && j > 0 && j < n_ - 1) {										//bottom row without the edges
+				current->setValue(grid_.at(i).at(j - 1).hasMine()
+					+ grid_.at(i - 1).at(j - 1).hasMine()
+					+ grid_.at(i - 1).at(j).hasMine()
+					+ grid_.at(i - 1).at(j + 1).hasMine()
+					+ grid_.at(i).at(j + 1).hasMine());
+			}
+
+			else if (i > 0 && i < m_ - 1 && j == 0) {										//right column without the edges
+				current->setValue(grid_.at(i - 1).at(j).hasMine()
+					+ grid_.at(i - 1).at(j + 1).hasMine()
+					+ grid_.at(i).at(j + 1).hasMine()
+					+ grid_.at(i + 1).at(j + 1).hasMine()
+					+ grid_.at(i + 1).at(j).hasMine());
+			}
+			
+			else {
+				current->setValue(grid_.at(i - 1).at(j - 1).hasMine()					//rest of the squares
+					+ grid_.at(i - 1).at(j).hasMine()
+					+ grid_.at(i - 1).at(j + 1).hasMine()
+					+ grid_.at(i).at(j + 1).hasMine()
+					+ grid_.at(i + 1).at(j + 1).hasMine()
+					+ grid_.at(i + 1).at(j).hasMine()
+					+ grid_.at(i + 1).at(j - 1).hasMine()
+					+ grid_.at(i).at(j - 1).hasMine());
+			}
+		}
+	}
+
+}

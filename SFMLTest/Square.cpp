@@ -5,6 +5,7 @@ Square::Square(int x, int y) {
 	y_ = y;
 	hasMine_ = false;
 	isOpened_ = false;
+	value_ = 0;
 }
 
 Square::Square() {
@@ -12,6 +13,7 @@ Square::Square() {
 	y_ = 0;
 	hasMine_ = false;
 	isOpened_ = false;
+	value_ = 0;
 }
 
 int Square::getX() {
@@ -40,4 +42,12 @@ bool Square::hasMine() {
 
 void Square::setMine() {
 	hasMine_ = true;
+}
+
+int Square::getValue() {
+	return value_;
+}
+
+void Square::setValue(int value) {
+	value_ = value;
 }
