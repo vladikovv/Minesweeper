@@ -187,6 +187,22 @@ int Game::openedSquaresToWin() const {
 	return squaresToWin_;
 }
 
+void Game::showAllMines() const {
+	for (size_t i = 0; i < m_; i++) {
+		std::vector<Square*> row = grid_.at(i);
+		for (size_t j = 0; j < n_; j++) {
+			Square* current = row.at(j);
+			if (current->hasMine() && !current->isFlagged()) {
+				sf::Texture texture;
+				if (!texture.loadFromFile("textures/MINESWEEPER_M.png")) {
+					std::cout << "Error loading texture!" << std::endl;
+				}
+				current->changeSprite(texture);
+			}
+		}
+	}
+}
+
 Game::~Game() {
 	for (size_t i = 0; i < m_; i++) {
 		std::vector<Square*> row = grid_.at(i);

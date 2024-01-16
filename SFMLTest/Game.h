@@ -19,6 +19,7 @@ public:
 	void incrementSquaresOpened();
 	int getSquaresOpened() const;
 	int openedSquaresToWin() const;
+	void showAllMines() const;
 	~Game();
 
 private:

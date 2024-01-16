@@ -31,9 +31,8 @@ int main() {
 					}
 					if (sq->isOpened()) {
 						if (sq->hasMine()) {
-							window.close();
+							game.showAllMines();
 							std::cout << "YOU LOSE!" << std::endl;
-							return 0;
 						} else {
 							std::vector<Square*> adjacentSquares;
 							int adjacentFlaggedSquares = countAdjacentFlaggedSquares(game, xCoord / SPRITE_LENGTH, yCoord / SPRITE_LENGTH, adjacentSquares);
@@ -41,9 +40,8 @@ int main() {
 								for (Square* adjSquare : adjacentSquares) {
 									if (!adjSquare->isFlagged()) {
 										if (adjSquare->hasMine()) {
-											window.close();
+											game.showAllMines();
 											std::cout << "YOU LOSE!" << std::endl;
-											return 0;
 										} 
 										else {
 											adjSquare->openSquare();
