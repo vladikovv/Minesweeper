@@ -12,7 +12,6 @@ Game::Game(int m, int n, int minesCount) {
 
 	addSquares();
 	addMines();
-
 	setNonMineSquareValues();
 	simplePrint();
 	std::cout << std::endl;

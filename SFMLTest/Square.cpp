@@ -34,8 +34,6 @@ Square::Square(int x, int y) {
 	sprite_.setScale(SPRITE_SCALE, SPRITE_SCALE);
 }
 
-
-
 int Square::getX() const {
 	return x_;
 }
@@ -121,9 +119,7 @@ void Square::openSquare() {
 				std::cout << "Error loading texture!" << std::endl;
 			}
 		}
-		
 	}
-	
 	changeSprite(texture);
 	isOpened_ = true;
 	isOpenable_ = false;

@@ -54,7 +54,8 @@ int main() {
 							}
 						}
 					}
-				} else if (event.mouseButton.button == sf::Mouse::Right) {
+				} 
+				else if (event.mouseButton.button == sf::Mouse::Right) {
 					if (sq->isOpenable()) {
 						sq->flag();
 					} else if (sq->isFlagged()) {
@@ -62,8 +63,7 @@ int main() {
 					}
 				}
 			}
-			std::cout << "squares needed to win: " << game.openedSquaresToWin() << std::endl
-				<< "squares opened: " << game.getSquaresOpened() << std::endl;
+
 			if (game.getSquaresOpened() == game.openedSquaresToWin()) {
 				window.close();
 				std::cout << "YOU WIN!" << std::endl;
@@ -71,7 +71,6 @@ int main() {
 			}
 		}
 		
-
 		window.clear(sf::Color(0,0,0,255));
 
 		for (size_t i = 0; i < game.getM(); i++) {
@@ -81,7 +80,6 @@ int main() {
 		}
 		window.display();
 	}
-
 
 	return 0;
 }
