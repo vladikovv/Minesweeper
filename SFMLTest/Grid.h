@@ -4,29 +4,30 @@
 #include<vector>
 #include "Square.h"
 
-class Grid {
+class Game {
 public:
-	Grid(int m, int n, int minesCount);
+	Game(int m, int n, int minesCount);
 	int getM();
 	int getN();
 	int getMinesCount();
 	void setM(int m);
 	void setN(int n);
 	void setMinesCount(int minesCount);
-	std::vector<std::vector<Square>> getGrid();
-
-
+	std::vector<std::vector<Square*>> getGrid();
+	~Game();
 
 private:
 	int m_;
 	int n_;
 	int minesCount_;
-	std::vector<std::vector<Square>> grid_;
+	std::vector<std::vector<Square*>> grid_;
+	bool gameOver_ = false;
 
 	void addSquares();
 	void addMines();
 	void simplePrint();
 	void setNonMineSquareValues();
+	void gameOver();
 	
 };
 

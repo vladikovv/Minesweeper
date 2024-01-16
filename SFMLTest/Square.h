@@ -18,6 +18,10 @@ public:
 	void setValue(int value);
 	sf::Sprite getSprite();
 	void setSprite(sf::Sprite& sprite);
+	sf::Texture getTexture();
+	void setTexture(sf::Texture& texture);
+	void changeSprite(sf::Texture& texture);
+	void openSquare();
 
 
 private:
@@ -26,6 +30,7 @@ private:
 	int value_;
 	bool isOpened_;
 	bool hasMine_;
+	sf::Texture texture_;
 	sf::Sprite sprite_;
 };
 

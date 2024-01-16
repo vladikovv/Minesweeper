@@ -21,7 +21,7 @@
     <ClCompile Include="Square.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Grid.cpp">
+    <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,5 +32,49 @@
     <ClInclude Include="Grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="MINESWEEPER_0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MINESWEEPER_1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MINESWEEPER_2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MINESWEEPER_3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MINESWEEPER_4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MINESWEEPER_5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MINESWEEPER_6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MINESWEEPER_7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MINESWEEPER_8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MINESWEEPER_C.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MINESWEEPER_F.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MINESWEEPER_M.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MINESWEEPER_tray.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MINESWEEPER_X.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

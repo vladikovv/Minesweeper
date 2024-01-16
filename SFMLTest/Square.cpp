@@ -1,15 +1,6 @@
 #include "Square.h"
-
-Square::Square(int x, int y) {
-	x_ = x;
-	y_ = y;
-	hasMine_ = false;
-	isOpened_ = false;
-	value_ = 0;
-	sf::Texture texture;
-	texture.loadFromFile("MINESWEEPER_0.png");
-	sprite_.setTexture(texture);
-}
+#include <iostream>
+#include <format>
 
 Square::Square() {
 	x_ = 0;
@@ -17,10 +8,30 @@ Square::Square() {
 	hasMine_ = false;
 	isOpened_ = false;
 	value_ = 0;
-	sf::Texture texture;
-	texture.loadFromFile("MINESWEEPER_0.png");
-	sprite_.setTexture(texture);
+	if (!texture_.loadFromFile("textures/MINESWEEPER_X.png")) {
+		std::cout << "Error loading texture!" << std::endl;
+	}
+	sprite_.setTexture(texture_);
+	sprite_.setPosition(1920 - x_ * 30 + 50, y_ * 30 + 50);
+	sprite_.setScale(0.15f, 0.15f);
 }
+
+Square::Square(int x, int y) {
+	x_ = x;
+	y_ = y;
+	hasMine_ = false;
+	isOpened_ = false;
+	value_ = 0;
+	
+	if (!texture_.loadFromFile("textures/MINESWEEPER_X.png")) {
+		std::cout << "Error loading texture!" << std::endl;
+	}
+	sprite_.setTexture(texture_);
+	sprite_.setPosition(x_ * 27, y_ * 27);
+	sprite_.setScale(0.125f, 0.125f);
+}
+
+
 
 int Square::getX() {
 	return x_;
@@ -63,4 +74,34 @@ sf::Sprite Square::getSprite() {
 }
 void Square::setSprite(sf::Sprite& sprite) {
 	sprite_ = sprite;
+}
+
+sf::Texture Square::getTexture() {
+	return texture_;
+}
+
+void Square::setTexture(sf::Texture& texture) {
+	texture_ = texture;
+}
+
+void Square::changeSprite(sf::Texture& texture) {
+	texture_ = texture;
+	sprite_.setTexture(texture_);
+}
+
+void Square::openSquare() {
+	sf::Texture texture;
+	if (hasMine_) {
+		if (!texture.loadFromFile("textures/MINESWEEPER_M.png")) {
+			std::cout << "Error loading texture!" << std::endl;
+		}
+	} else {
+		std::string fileName = std::format("textures/MINESWEEPER_{}.png", getValue());
+		if (!texture.loadFromFile(fileName)) {
+			std::cout << "Error loading texture!" << std::endl;
+		}
+	}
+	
+	changeSprite(texture);
+	isOpened_ = true;
 }
