@@ -8,6 +8,7 @@ Game::Game(int m, int n, int minesCount) {
 	n_ = n;
 	minesCount_ = minesCount;
 	squaresToWin_ = m_ * n_ - minesCount;
+	squaresOpened_ = 0;
 
 	addSquares();
 	addMines();
@@ -167,6 +168,26 @@ void Game::addSquares() {
 	}
 }
 
+void Game::endGame() {
+	isGameOver_ = true;
+ }
+
+bool Game::isGameOver() {
+	return isGameOver_;
+}
+
+void Game::incrementSquaresOpened() {
+	squaresOpened_++;
+}
+
+int Game::getSquaresOpened() {
+	return squaresOpened_;
+}
+
+int Game::openedSquaresToWin() {
+	return squaresToWin_;
+}
+
 Game::~Game() {
 	for (size_t i = 0; i < m_; i++) {
 		std::vector<Square*> row = grid_.at(i);
@@ -174,12 +195,4 @@ Game::~Game() {
 			delete row.at(j);
 		}
 	}
-}
-
-void Game::endGame() {
-	isGameOver_ = true;
- }
-
-bool Game::isGameOver() {
-	return isGameOver_;
 }

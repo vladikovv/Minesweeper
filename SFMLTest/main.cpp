@@ -1,14 +1,10 @@
 #include "Game.h"
+#include "Constants.h"
 
 #include <SFML/Graphics.hpp>
 #include <climits>
 #include <iostream>
 #include <cstdlib>
-
-constexpr int SPRITE_LENGTH = 54;
-constexpr int LENGTH = 16;
-constexpr int WIDTH = 16;
-constexpr int NUMBER_OF_MINES = 40;
 
 
 int countAdjacentFlaggedSquares(Game& game, int x, int y, std::vector<Square*>& arr);
@@ -31,21 +27,29 @@ int main() {
 				if (event.mouseButton.button == sf::Mouse::Left) {
 					if (sq->isOpenable()) {
 						sq->openSquare();
+						game.incrementSquaresOpened();
 					}
 					if (sq->isOpened()) {
 						if (sq->hasMine()) {
 							window.close();
+							std::cout << "YOU LOSE!" << std::endl;
 							return 0;
 						} else {
 							std::vector<Square*> adjacentSquares;
 							int adjacentFlaggedSquares = countAdjacentFlaggedSquares(game, xCoord / SPRITE_LENGTH, yCoord / SPRITE_LENGTH, adjacentSquares);
 							if (adjacentFlaggedSquares == sq->getValue()) {
 								for (Square* adjSquare : adjacentSquares) {
-									if (adjSquare->hasMine()) {
-										window.close();
-										return 0;
+									if (!adjSquare->isFlagged()) {
+										if (adjSquare->hasMine()) {
+											window.close();
+											std::cout << "YOU LOSE!" << std::endl;
+											return 0;
+										} 
+										else {
+											adjSquare->openSquare();
+											game.incrementSquaresOpened();
+										}
 									}
-									adjSquare->openSquare();
 								}
 							}
 						}
@@ -57,6 +61,13 @@ int main() {
 						sq->removeFlag();
 					}
 				}
+			}
+			std::cout << "squares needed to win: " << game.openedSquaresToWin() << std::endl
+				<< "squares opened: " << game.getSquaresOpened() << std::endl;
+			if (game.getSquaresOpened() == game.openedSquaresToWin()) {
+				window.close();
+				std::cout << "YOU WIN!" << std::endl;
+				return 0;
 			}
 		}
 		

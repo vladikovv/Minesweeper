@@ -1,6 +1,9 @@
 #include "Square.h"
+#include "Constants.h"
+
 #include <iostream>
 #include <format>
+
 
 Square::Square() {
 	x_ = 0;
@@ -12,8 +15,8 @@ Square::Square() {
 		std::cout << "Error loading texture!" << std::endl;
 	}
 	sprite_.setTexture(texture_);
-	sprite_.setPosition(x_ * 27, y_ * 27);
-	sprite_.setScale(0.125f, 0.125f);
+	sprite_.setPosition(x_ * SPRITE_LENGTH, y_ * SPRITE_LENGTH);
+	sprite_.setScale(SPRITE_SCALE, SPRITE_SCALE);
 }
 
 Square::Square(int x, int y) {
@@ -27,8 +30,8 @@ Square::Square(int x, int y) {
 		std::cout << "Error loading texture!" << std::endl;
 	}
 	sprite_.setTexture(texture_);
-	sprite_.setPosition(x_ * 54, y_ * 54);
-	sprite_.setScale(0.25f, 0.25f);
+	sprite_.setPosition(x_ * SPRITE_LENGTH, y_ * SPRITE_LENGTH);
+	sprite_.setScale(SPRITE_SCALE, SPRITE_SCALE);
 }
 
 
