@@ -26,30 +26,32 @@ int main() {
 				Square* sq = game.getGrid().at(xCoord / SPRITE_LENGTH).at(yCoord / SPRITE_LENGTH);
 				if (event.mouseButton.button == sf::Mouse::Left) {
 					if (sq->isOpenable()) {
-						sq->openSquare();
-						game.incrementSquaresOpened();
-					}
-					if (sq->isOpened()) {
 						if (sq->hasMine()) {
 							game.showAllMines();
 							std::cout << "YOU LOSE!" << std::endl;
-						} else {
-							std::vector<Square*> adjacentSquares;
-							int adjacentFlaggedSquares = countAdjacentFlaggedSquares(game, xCoord / SPRITE_LENGTH, yCoord / SPRITE_LENGTH, adjacentSquares);
-							if (adjacentFlaggedSquares == sq->getValue()) {
-								for (Square* adjSquare : adjacentSquares) {
-									if (!adjSquare->isFlagged()) {
-										if (adjSquare->hasMine()) {
-											game.showAllMines();
-											std::cout << "YOU LOSE!" << std::endl;
-										} 
-										else {
-											adjSquare->openSquare();
-											game.incrementSquaresOpened();
-										}
+						}
+						sq->openSquare();
+						game.incrementSquaresOpened();
+						continue;
+					}
+					if (sq->isOpened()) {
+					{
+						std::vector<Square*> adjacentSquares;
+						int adjacentFlaggedSquares = countAdjacentFlaggedSquares(game, xCoord / SPRITE_LENGTH, yCoord / SPRITE_LENGTH, adjacentSquares);
+						if (adjacentFlaggedSquares == sq->getValue()) {
+							for (Square* adjSquare : adjacentSquares) {
+								if (!adjSquare->isFlagged()) {
+									if (adjSquare->hasMine()) {
+										game.showAllMines();
+										std::cout << "YOU LOSE!" << std::endl;
+									} 
+									else {
+										adjSquare->openSquare();
+										game.incrementSquaresOpened();
 									}
 								}
 							}
+						}
 						}
 					}
 				} 
