@@ -54,6 +54,7 @@ void Game::addMines() {
 
 		if (!grid_.at(mineXCoord).at(mineYCoord)->hasMine()) {
 			grid_.at(mineXCoord).at(mineYCoord)->setMine();
+			grid_.at(mineXCoord).at(mineYCoord)->setValue(-1);
 			addedMinesCount++;
 		}
 	}
@@ -62,16 +63,13 @@ void Game::addMines() {
 void Game::simplePrint() const {
 	for (size_t i = 0; i < m_; i++) {
 		for (size_t j = 0; j < n_; j++) {
-			if (grid_.at(j).at(i)->hasMine()) {
-				std::cout << "M ";
-			}
-			else {
-				std::cout << grid_.at(j).at(i)->getValue() << ' ';
-			}
+			std::cout << grid_.at(j).at(i)->getValue() << ' ';
 		}
 		std::cout << std::endl;
 	}
+
 }
+
 
 void Game::setNonMineSquareValues() {
 	for (size_t i = 0; i < m_; i++) {
@@ -199,6 +197,15 @@ void Game::showAllMines() const {
 				}
 				current->changeSprite(texture);
 			}
+		}
+	}
+}
+
+void Game::makeAllSquaresUnopenable() {
+	for (size_t i = 0; i < m_; i++) {
+		std::vector<Square*> row = grid_.at(i);
+		for (size_t j = 0; j < n_; j++) {
+			row.at(j)->setOpenable(false);
 		}
 	}
 }

@@ -20,6 +20,7 @@ public:
 	void incrementSquaresOpened();
 	int openedSquares() const;
 	int getOpenedSquaresToWin() const;
+	void makeAllSquaresUnopenable();
 	~Game();
 
 private:

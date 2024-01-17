@@ -92,7 +92,7 @@ void Square::changeSprite(sf::Texture& texture) {
 	sprite_.setTexture(texture_);
 }
 
-void Square::openSquare(sf::RenderWindow& window) {
+void Square::openSquare() {
 	sf::Texture texture;
 	if (isFlagged_) {
 		return;
@@ -125,8 +125,6 @@ void Square::openSquare(sf::RenderWindow& window) {
 	changeSprite(texture);
 	isOpened_ = true;
 	isOpenable_ = false;
-	window.clear(sf::Color(0, 0, 0, 255));
-	window.display();
 }
 
 void Square::setIsOpened(bool value) {
@@ -146,6 +144,10 @@ void Square::flag() {
 
 bool Square::isOpenable() const {
 	return isOpenable_ && !isOpened_;
+}
+
+void Square::setOpenable(bool value) {
+	isOpenable_ = value;
 }
 
 bool Square::isFlagged() const {

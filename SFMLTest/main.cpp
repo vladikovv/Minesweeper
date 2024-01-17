@@ -29,13 +29,15 @@ int main() {
 					if (sq->isOpenable()) {
 						if (sq->hasMine()) {
 							game.showAllMines();
+							game.makeAllSquaresUnopenable();
 							std::cout << "YOU LOSE!" << std::endl;
+							break;
 						}
 						if (sq->getValue() == 0) {
 							revealEmptySquaresRecursive(game, xCoord / SPRITE_LENGTH, yCoord / SPRITE_LENGTH, window);
 						} 
 						else {
-							sq->openSquare(window);
+							sq->openSquare();
 							game.incrementSquaresOpened();
 						}
 
@@ -58,7 +60,7 @@ int main() {
 											revealEmptySquaresRecursive(game, adjSquare->getX(), adjSquare->getY(), window);
 										}
 										else {
-											adjSquare->openSquare(window);
+											adjSquare->openSquare();
 											game.incrementSquaresOpened();
 										}
 									}
@@ -90,8 +92,6 @@ int main() {
 				window.draw(game.getGrid()[i][j]->getSprite());
 			}
 		}
-		std::cout << "needed number of squares for a win: " << game.getOpenedSquaresToWin() << std::endl;
-		std::cout << "current number of squares opened: " << game.openedSquares() << std::endl;
 
 		window.display();
 	}
@@ -134,7 +134,7 @@ void revealEmptySquaresRecursive(Game& game, int x, int y, sf::RenderWindow& win
 		return;
 	}
 
-	currentSquare->openSquare(window);
+	currentSquare->openSquare();
 	game.incrementSquaresOpened();
 
 	if (currentSquare->getValue() != 0) {

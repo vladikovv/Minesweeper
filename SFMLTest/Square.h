@@ -21,11 +21,12 @@ public:
 	sf::Texture getTexture() const;
 	void setTexture(sf::Texture& texture);
 	void changeSprite(sf::Texture& texture);
-	void openSquare(sf::RenderWindow& window);
+	void openSquare();
 	void setIsOpened(bool value);
 	void flag();
 	bool isFlagged() const;
 	bool isOpenable() const;
+	void setOpenable(bool value);
 	void removeFlag();
 
 private:
