@@ -1,6 +1,8 @@
 #include "Square.h"
 #include "Constants.h"
 
+
+
 #include <iostream>
 #include <format>
 
@@ -90,7 +92,7 @@ void Square::changeSprite(sf::Texture& texture) {
 	sprite_.setTexture(texture_);
 }
 
-void Square::openSquare() {
+void Square::openSquare(sf::RenderWindow& window) {
 	sf::Texture texture;
 	if (isFlagged_) {
 		return;
@@ -123,6 +125,8 @@ void Square::openSquare() {
 	changeSprite(texture);
 	isOpened_ = true;
 	isOpenable_ = false;
+	window.clear(sf::Color(0, 0, 0, 255));
+	window.display();
 }
 
 void Square::setIsOpened(bool value) {

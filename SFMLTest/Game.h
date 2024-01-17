@@ -16,9 +16,10 @@ public:
 	std::vector<std::vector<Square*>> getGrid() const;
 	void endGame();
 	bool isGameOver() const;
-	void incrementMinesMarked();
-	int getMinesMarked() const;
 	void showAllMines() const;
+	void incrementSquaresOpened();
+	int openedSquares() const;
+	int getOpenedSquaresToWin() const;
 	~Game();
 
 private:
@@ -27,7 +28,9 @@ private:
 	int minesCount_;
 	std::vector<std::vector<Square*>> grid_;
 	bool isGameOver_ = false;
-	int minesMarked_;;
+	int openedSquares_;
+	int openedSquaresToWin_;
+
 
 	void addSquares();
 	void addMines();

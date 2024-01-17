@@ -8,7 +8,7 @@
 
 
 int countAdjacentFlaggedSquares(const Game& game, const int x, const int y, std::vector<Square*>& adjacentSquares);
-void revealEmptySquaresRecursive(Game& game, int x, int y);
+void revealEmptySquaresRecursive(Game& game, int x, int y, sf::RenderWindow& window);
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(SPRITE_LENGTH * LENGTH, SPRITE_LENGTH * WIDTH), "Minesweeper", sf::Style::Titlebar | sf::Style::Close);
@@ -32,9 +32,14 @@ int main() {
 							std::cout << "YOU LOSE!" << std::endl;
 						}
 						if (sq->getValue() == 0) {
-							revealEmptySquaresRecursive(game, xCoord / SPRITE_LENGTH, yCoord / SPRITE_LENGTH);
+							revealEmptySquaresRecursive(game, xCoord / SPRITE_LENGTH, yCoord / SPRITE_LENGTH, window);
+						} 
+						else {
+							sq->openSquare(window);
+							game.incrementSquaresOpened();
 						}
-						sq->openSquare();
+
+
 						continue;
 						//TODO: make a system that ends the game correctly
 					}
@@ -50,10 +55,12 @@ int main() {
 									} 
 									else {
 										if (adjSquare->getValue() == 0) {
-											revealEmptySquaresRecursive(game, adjSquare->getX(), adjSquare->getY());
+											revealEmptySquaresRecursive(game, adjSquare->getX(), adjSquare->getY(), window);
 										}
-										adjSquare->openSquare();
-										//game.incrementSquaresOpened();
+										else {
+											adjSquare->openSquare(window);
+											game.incrementSquaresOpened();
+										}
 									}
 								}
 							}
@@ -69,11 +76,11 @@ int main() {
 				}
 			}
 
-			/*if (game.getSquaresOpened() == game.openedSquaresToWin()) {
+			if (game.openedSquares() == game.getOpenedSquaresToWin()) {
 				window.close();
 				std::cout << "YOU WIN!" << std::endl;
 				return 0;
-			}*/
+			}
 		}
 		
 		window.clear(sf::Color(0,0,0,255));
@@ -83,8 +90,8 @@ int main() {
 				window.draw(game.getGrid()[i][j]->getSprite());
 			}
 		}
-		/*std::cout << "needed number of squares for a win: " << game.openedSquaresToWin() << std::endl;
-		std::cout << "current number of squares opened: " << game.getSquaresOpened() << std::endl;*/
+		std::cout << "needed number of squares for a win: " << game.getOpenedSquaresToWin() << std::endl;
+		std::cout << "current number of squares opened: " << game.openedSquares() << std::endl;
 
 		window.display();
 	}
@@ -117,7 +124,7 @@ int countAdjacentFlaggedSquares(const Game& game, const int x, const int y, std:
 	return result;
 }
 
-void revealEmptySquaresRecursive(Game& game, int x, int y) {
+void revealEmptySquaresRecursive(Game& game, int x, int y, sf::RenderWindow& window) {
 	if (x < 0 || x >= game.getM() || y < 0 || y >= game.getN()) {
 		return;
 	}
@@ -127,8 +134,8 @@ void revealEmptySquaresRecursive(Game& game, int x, int y) {
 		return;
 	}
 
-	currentSquare->openSquare();
-	//game.incrementSquaresOpened();
+	currentSquare->openSquare(window);
+	game.incrementSquaresOpened();
 
 	if (currentSquare->getValue() != 0) {
 		return;
@@ -136,7 +143,7 @@ void revealEmptySquaresRecursive(Game& game, int x, int y) {
 
 	for (int i = -1; i <= 1; ++i) {
 		for (int j = -1; j <= 1; ++j) {
-			revealEmptySquaresRecursive(game, x + i, y + j);
+			revealEmptySquaresRecursive(game, x + i, y + j, window);
 		}
 	}
 }

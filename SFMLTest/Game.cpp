@@ -7,6 +7,8 @@ Game::Game(int m, int n, int minesCount) {
 	m_ = m;
 	n_ = n;
 	minesCount_ = minesCount;
+	openedSquares_ = 0;
+	openedSquaresToWin_ = m_ * n_ - minesCount_;
 
 	addSquares();
 	addMines();
@@ -173,12 +175,16 @@ bool Game::isGameOver() const {
 	return isGameOver_;
 }
 
-void Game::incrementMinesMarked() {
-	minesMarked_++;
+void Game::incrementSquaresOpened() {
+	openedSquares_++;
 }
 
-int Game::getMinesMarked() const {
-	return minesMarked_;
+int Game::openedSquares() const {
+	return openedSquares_;
+}
+
+int Game::getOpenedSquaresToWin() const {
+	return openedSquaresToWin_;
 }
 
 void Game::showAllMines() const {
