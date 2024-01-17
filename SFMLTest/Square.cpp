@@ -32,7 +32,7 @@ Square::Square(int x, int y) {
 		std::cout << "Error loading texture!" << std::endl;
 	}
 	sprite_.setTexture(texture_);
-	sprite_.setPosition(x_ * SPRITE_LENGTH, y_ * SPRITE_LENGTH);
+	sprite_.setPosition(x_ * SPRITE_LENGTH, y_ * SPRITE_LENGTH + 50);
 	sprite_.setScale(SPRITE_SCALE, SPRITE_SCALE);
 }
 

@@ -11,8 +11,18 @@ int countAdjacentFlaggedSquares(const Game& game, const int x, const int y, std:
 void revealEmptySquaresRecursive(Game& game, int x, int y, sf::RenderWindow& window);
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(SPRITE_LENGTH * LENGTH, SPRITE_LENGTH * WIDTH), "Minesweeper", sf::Style::Titlebar | sf::Style::Close);
+	sf::RenderWindow window(sf::VideoMode(SPRITE_LENGTH * LENGTH, SPRITE_LENGTH * WIDTH + 50), "Minesweeper", sf::Style::Titlebar | sf::Style::Close);
 	Game game(LENGTH, WIDTH, NUMBER_OF_MINES);
+
+	sf::Font font;
+	if (!font.loadFromFile("fonts/mine-sweeper.ttf")) {
+		std::cout << "Couldn't load font";
+	}
+
+	sf::Text text;
+	text.setFont(font);
+	text.setPosition(10, 10);
+
 
 	while (game.isGameOver() != true && window.isOpen()) {
 		sf::Event event;
@@ -23,7 +33,7 @@ int main() {
 			}
 			if (event.type == sf::Event::MouseButtonReleased) {
 				int xCoord = event.mouseButton.x;
-				int yCoord = event.mouseButton.y;
+				int yCoord = event.mouseButton.y - 50;
 				Square* sq = game.getGrid().at(xCoord / SPRITE_LENGTH).at(yCoord / SPRITE_LENGTH);
 				if (event.mouseButton.button == sf::Mouse::Left) {
 					if (sq->isOpenable()) {
@@ -40,10 +50,7 @@ int main() {
 							sq->openSquare();
 							game.incrementSquaresOpened();
 						}
-
-
 						continue;
-						//TODO: make a system that ends the game correctly
 					}
 					if (sq->isOpened()) {
 						std::vector<Square*> adjacentSquares;
@@ -72,8 +79,10 @@ int main() {
 				else if (event.mouseButton.button == sf::Mouse::Right) {
 					if (sq->isOpenable()) {
 						sq->flag();
+						game.setMinesLeft(game.getMinesLeft() - 1);
 					} else if (sq->isFlagged()) {
 						sq->removeFlag();
+						game.setMinesLeft(game.getMinesLeft() + 1);
 					}
 				}
 			}
@@ -83,10 +92,12 @@ int main() {
 				std::cout << "YOU WIN!" << std::endl;
 				return 0;
 			}
+			text.setString("Mines left: " + std::to_string(game.getMinesLeft()));
 		}
 		
-		window.clear(sf::Color(0,0,0,255));
+		window.clear(sf::Color(7,56,215,255));
 
+		window.draw(text);
 		for (size_t i = 0; i < game.getM(); i++) {
 			for (size_t j = 0; j < game.getN(); j++) {
 				window.draw(game.getGrid()[i][j]->getSprite());

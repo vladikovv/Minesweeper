@@ -21,12 +21,15 @@ public:
 	int openedSquares() const;
 	int getOpenedSquaresToWin() const;
 	void makeAllSquaresUnopenable();
+	void setMinesLeft(int minesLeft);
+	int getMinesLeft();
 	~Game();
 
 private:
 	int m_;
 	int n_;
 	int minesCount_;
+	int minesLeft_;
 	std::vector<std::vector<Square*>> grid_;
 	bool isGameOver_ = false;
 	int openedSquares_;

@@ -9,6 +9,7 @@ Game::Game(int m, int n, int minesCount) {
 	minesCount_ = minesCount;
 	openedSquares_ = 0;
 	openedSquaresToWin_ = m_ * n_ - minesCount_;
+	minesLeft_ = minesCount_;
 
 	addSquares();
 	addMines();
@@ -208,6 +209,13 @@ void Game::makeAllSquaresUnopenable() {
 			row.at(j)->setOpenable(false);
 		}
 	}
+}
+
+void Game::setMinesLeft(int minesLeft) {
+	minesLeft_ = minesLeft;
+}
+int Game::getMinesLeft() {
+	return minesLeft_;
 }
 
 Game::~Game() {

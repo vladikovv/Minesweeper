@@ -162,6 +162,9 @@
     <Image Include="MINESWEEPER_tray.png" />
     <Image Include="MINESWEEPER_X.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="C:\Users\slau\Desktop\mine-sweeper.ttf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
